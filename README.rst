@@ -1,5 +1,7 @@
-DJ Sam. Spinning all your favorite SAML hits
-============================================
+DJ Sam
+======
+
+**Spinning all your favorite SAML hits.**
 
 *RHEL 7 on AWS*
 
