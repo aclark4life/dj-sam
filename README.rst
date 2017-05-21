@@ -29,11 +29,8 @@ RHEL 7
 
 ::
 
-    sudo yum groupinstall "Development Tools"
-    sudo yum install httpd
-    sudo yum install mod_wsgi
-    sudo yum install git
-    sudo yum install python2-pip python-virtualenv
+    sudo yum groupinstall "Development Tools" -y
+    sudo yum install httpd mod_wsgi git python2-pip python-virtualenv -y
 
     # Certbot requires epel repo & zope interface RPM from vendor/
     rpm -Uvh python-zope-interface-4.0.5-4.el7.x86_64.rpm 
