@@ -15,6 +15,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PUBLIC_CERT = os.path.join(BASE_DIR, 'certificate.crt')
 PRIVATE_KEY = os.path.join(BASE_DIR, 'private.key')
 
+cert = open(PUBLIC_CERT).read()
+key = open(PRIVATE_KEY).read()
+
 SAML2_RESPONSE = """
 <samlp:Response xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
                 xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
@@ -80,7 +83,7 @@ SAML2_RESPONSE = """
         </saml:AuthnStatement>
     </saml:Assertion>
 </samlp:Response>
-""" % PUBLIC_CERT
+""" % cert
 
 
 def home(request):
