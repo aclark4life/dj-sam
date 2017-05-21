@@ -105,14 +105,17 @@ def home(request):
 
     response_id = onelogin_saml2_utils.generate_unique_id()
     # https://github.com/jbardin/python-saml/blob/master/saml.py#L101
-    issue_instant = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%f')[:22]
+    issue_instant = datetime.datetime.utcnow().strftime(
+        '%Y-%m-%dT%H:%M:%S.%f')[:22]
     assertion_id = onelogin_saml2_utils.generate_unique_id()
 
-    saml2_response = SAML2_RESPONSE % (response_id, issue_instant, assertion_id, issue_instant, cert)
+    saml2_response = SAML2_RESPONSE % (response_id, issue_instant,
+                                       assertion_id, issue_instant, cert)
 
     # Sign
     root = etree.fromstring(saml2_response)
-    signature_node = xmlsec.tree.find_node(root, xmlsec.constants.NodeSignature)
+    signature_node = xmlsec.tree.find_node(root,
+                                           xmlsec.constants.NodeSignature)
     ctx = xmlsec.SignatureContext()
     key = xmlsec.Key.from_file(PRIVATE_KEY, xmlsec.constants.KeyDataFormatPem)
     ctx.key = key
@@ -122,8 +125,7 @@ def home(request):
     saml2_response = etree.tostring(root, pretty_print=True)
 
     context = {
-        'base64_encoded_saml_response':
-        base64.b64encode(saml2_response),
+        'base64_encoded_saml_response': base64.b64encode(saml2_response),
         'saml_response': saml2_response,
         'saml2_response_destination': destination,
     }
