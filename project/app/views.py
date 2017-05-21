@@ -56,9 +56,7 @@ SAML2_RESPONSE = """
             </ds:SignedInfo>
             <ds:SignatureValue></ds:SignatureValue>
             <ds:KeyInfo>
-                <ds:X509Data>
-                    <ds:X509Certificate>%s</ds:X509Certificate>
-                </ds:X509Data>
+                <ds:X509Data><ds:X509Certificate>%s</ds:X509Certificate></ds:X509Data>
             </ds:KeyInfo>
         </ds:Signature>
         <saml:Subject>
