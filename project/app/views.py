@@ -59,11 +59,7 @@ SAML2_RESPONSE = """
               </Reference>
             </SignedInfo>
             <SignatureValue/>
-            <KeyInfo>
-                <X509Data>
-                    <X509Certificate>%s</X509Certificate>
-                </X509Data>
-            </KeyInfo>
+            <KeyInfo/>
         </Signature>
         <saml:Subject>
             <saml:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">aclark@aclark.net</saml:NameID>
@@ -110,7 +106,7 @@ def home(request):
     assertion_id = onelogin_saml2_utils.generate_unique_id()
 
     saml2_response = SAML2_RESPONSE % (response_id, issue_instant,
-                                       assertion_id, issue_instant, cert)
+                                       assertion_id, issue_instant)
 
     # Sign
     root = etree.fromstring(saml2_response)
