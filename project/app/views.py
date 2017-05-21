@@ -1,5 +1,16 @@
 from django.shortcuts import render
 
+SAML2_RESPONSE_ISSUER = 'https://dj-saml-idp.aclark.net'
+SAML2_RESPONSE_DEST_URL = {
+    'absorb': 'https://aclark.myabsorb.com/account/saml',
+    'testshib': 'https://sp.testshib.org/Shibboleth.sso/SAML2/POST',
+}
+SAML2_RESPONSE_PRINCIPAL = 'aclark@aclark.net'
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+PUBLIC_CERT = os.path.join(BASE_DIR, 'certificate.crt')
+PRIVATE_KEY = os.path.join(BASE_DIR, 'private.key')
 
 SAML2_RESPONSE = """
 <samlp:Response xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
@@ -72,6 +83,24 @@ SAML2_RESPONSE = """
 def home(request):
     """
     """
+
+    destination = request.GET.get('destination')
+    if destination:
+        destination = SAML2_RESPONSE_DEST_URL[destination]
+    else:
+        destination = SAML2_RESPONSE_DEST_URL['absorb']
+
+    # http://stackoverflow.com/a/3974112
+    root = etree.fromstring(SAML2_RESPONSE)
+    saml_response_pretty = etree.tostring(root, pretty_print=True)
+
+    context = {
+        'base64_encoded_saml_response': base64.b64encode(SAML2_RESPONSE),
+        'saml_response': saml_response_pretty,
+        'saml2_response_destination': destination,
+    }
+    return render(request, 'home.html', context)
+
     context = {
         'base64_encoded_saml_response': SAML2_RESPONSE,
     }
