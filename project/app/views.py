@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import os
 
 SAML2_RESPONSE_ISSUER = 'https://dj-saml-idp.aclark.net'
 SAML2_RESPONSE_DEST_URL = {
