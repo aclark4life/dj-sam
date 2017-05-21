@@ -16,8 +16,8 @@ PUBLIC_CERT = os.path.join(BASE_DIR, 'certificate.crt')
 PRIVATE_KEY = os.path.join(BASE_DIR, 'private.key')
 
 cert = open(PUBLIC_CERT).read()
-cert.replace('-----BEGIN CERTIFICATE-----', '')
-cert.replace('-----END CERTIFICATE-----', '')
+cert = cert.replace('-----BEGIN CERTIFICATE-----', '')
+cert = cert.replace('-----END CERTIFICATE-----', '')
 key = open(PRIVATE_KEY).read()
 
 SAML2_RESPONSE = """
