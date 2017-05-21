@@ -24,7 +24,6 @@ key = open(PRIVATE_KEY).read()
 
 onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
-
 SAML2_RESPONSE = """
 <samlp:Response xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
                 xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
@@ -111,7 +110,8 @@ def home(request):
     saml_response_pretty = etree.tostring(root, pretty_print=True)
 
     context = {
-        'base64_encoded_saml_response': base64.b64encode(SAML2_RESPONSE % (response_id, assertion_id, cert)),
+        'base64_encoded_saml_response':
+        base64.b64encode(SAML2_RESPONSE % (response_id, assertion_id, cert)),
         'saml_response': saml_response_pretty,
         'saml2_response_destination': destination,
     }
