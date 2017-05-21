@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from lxml import etree
+from onelogin.saml2 import utils
 import base64
 import os
 
@@ -21,10 +22,15 @@ cert = cert.replace('-----END CERTIFICATE-----', '')
 cert = cert.replace('\n', '')
 key = open(PRIVATE_KEY).read()
 
+onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
+
+response_id = onelogin_saml2_utils.generate_unique_id()
+assertion_id = onelogin_saml2_utils.generate_unique_id()
+
 SAML2_RESPONSE = """
 <samlp:Response xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
                 xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
-                ID="R7160360b378fef81d99fa54c6e0a4aa5c9c1a015"
+                ID="%s"
                 Version="2.0"
                 IssueInstant="2017-05-16T23:34:33Z"
                 Destination="{recipient}"
@@ -37,7 +43,7 @@ SAML2_RESPONSE = """
                     xmlns:xs="http://www.w3.org/2001/XMLSchema"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     Version="2.0"
-                    ID="pfx89aab9e8-af3e-ace9-97b6-c1086f076d7a"
+                    ID="%s"
                     IssueInstant="2017-05-16T23:34:33Z"
                     >
         <saml:Issuer>https://app.onelogin.com/saml/metadata/658891</saml:Issuer>
@@ -86,7 +92,7 @@ SAML2_RESPONSE = """
         </saml:AuthnStatement>
     </saml:Assertion>
 </samlp:Response>
-""" % cert
+""" % (response_id, assertion_id, cert)
 
 
 def home(request):
