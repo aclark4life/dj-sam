@@ -129,6 +129,9 @@
 def home(request):
     """
     """
+    context = {}
+    return render(request, 'home.html', context)
+
 #    # Configure destination here based on menu selection
 #    destination = request.GET.get('destination')
 #    if destination:
