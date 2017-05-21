@@ -335,7 +335,7 @@ vagrant-update:
 .DEFAULT_GOAL=deploy
 deploy:
 	-@$(MAKE) git-commit-auto-push
-	ssh saml "cd /srv/django-samlicious ; sudo systemctl stop httpd; sudo -u apache git pull ;sudo -u apache make install; sudo systemctl start httpd; " 
+	ssh saml "cd /srv/dj-sam ; sudo systemctl stop httpd; sudo -u apache git pull ;sudo -u apache make install; sudo systemctl start httpd; " 
 
 cert:
 	openssl req -new -x509 -days 3652 -nodes -out certificate.crt -keyout private.key
