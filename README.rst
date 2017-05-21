@@ -338,6 +338,6 @@ Research
 --------
 
 - http://research.aurainfosec.io/bypassing-saml20-SSO/
-- https://github.com/onelogin/python-saml/issues/30
+- https://github.com/onelogin/python-saml/issues/30#issuecomment-75954988
 - https://github.com/onelogin/python-saml/issues/166
 - http://python-saml.readthedocs.io/en/latest/
