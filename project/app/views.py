@@ -111,13 +111,8 @@ def home(request):
     saml_response_pretty = etree.tostring(root, pretty_print=True)
 
     context = {
-        'base64_encoded_saml_response': base64.b64encode(SAML2_RESPONSE),
+        'base64_encoded_saml_response': base64.b64encode(SAML2_RESPONSE % (response_id, assertion_id, cert)),
         'saml_response': saml_response_pretty,
         'saml2_response_destination': destination,
-    }
-    return render(request, 'home.html', context)
-
-    context = {
-        'base64_encoded_saml_response': SAML2_RESPONSE,
     }
     return render(request, 'home.html', context)
