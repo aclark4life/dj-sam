@@ -2,6 +2,7 @@ from django.shortcuts import render
 from lxml import etree
 from onelogin.saml2 import utils
 import base64
+import datetime
 import os
 
 SAML2_RESPONSE_ISSUER = 'https://dj-saml-idp.aclark.net'
@@ -29,7 +30,7 @@ SAML2_RESPONSE = """
                 xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
                 ID="%s"
                 Version="2.0"
-                IssueInstant="2017-05-16T23:34:33Z"
+                IssueInstant="%s"
                 Destination="{recipient}"
                 >
     <saml:Issuer>https://app.onelogin.com/saml/metadata/658891</saml:Issuer>
@@ -103,15 +104,17 @@ def home(request):
         destination = SAML2_RESPONSE_DEST_URL['absorb']
 
     response_id = onelogin_saml2_utils.generate_unique_id()
+    # https://github.com/jbardin/python-saml/blob/master/saml.py#L101
+    response_now = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%f')[:22]
     assertion_id = onelogin_saml2_utils.generate_unique_id()
 
     # http://stackoverflow.com/a/3974112
-    root = etree.fromstring(SAML2_RESPONSE % (response_id, assertion_id, cert))
+    root = etree.fromstring(SAML2_RESPONSE % (response_id, response_now, assertion_id, cert))
     saml_response_pretty = etree.tostring(root, pretty_print=True)
 
     context = {
         'base64_encoded_saml_response':
-        base64.b64encode(SAML2_RESPONSE % (response_id, assertion_id, cert)),
+        base64.b64encode(SAML2_RESPONSE % (response_id, response_now, assertion_id, cert)),
         'saml_response': saml_response_pretty,
         'saml2_response_destination': destination,
     }
