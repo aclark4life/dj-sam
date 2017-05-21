@@ -109,15 +109,15 @@ def home(request):
                                        assertion_id, issue_instant)
 
     # Sign
-    root = etree.fromstring(saml2_response)
-    signature_node = xmlsec.tree.find_node(root,
+    # root = etree.fromstring(saml2_response)
+    # signature_node = xmlsec.tree.find_node(root,
                                            xmlsec.constants.NodeSignature)
-    ctx = xmlsec.SignatureContext()
-    key = xmlsec.Key.from_file(PRIVATE_KEY, xmlsec.constants.KeyDataFormatPem)
-    ctx.key = key
-    ctx.sign(signature_node)
+    # ctx = xmlsec.SignatureContext()
+    # key = xmlsec.Key.from_file(PRIVATE_KEY, xmlsec.constants.KeyDataFormatPem)
+    # ctx.key = key
+    # ctx.sign(signature_node)
 
-    # http://stackoverflow.com/a/3974112
+    # Pretty, http://stackoverflow.com/a/3974112
     saml2_response = etree.tostring(root, pretty_print=True)
 
     context = {
