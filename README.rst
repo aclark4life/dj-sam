@@ -47,20 +47,22 @@ selinux
 Apache
 ~~~~~~
 
+*ssl.conf*
+
 ::
 
     …
 
-    WSGIScriptAlias / /srv/django-saml-test/project/wsgi.py
-    <Directory /srv/django-saml-test/project>
+    WSGIScriptAlias / /srv/dj-sam/project/wsgi.py
+    <Directory /srv/dj-sam/project>
             <Files wsgi.py>
                     Require all granted
             </Files>
     </Directory>
     </VirtualHost>
 
-    WSGIPythonHome /srv/django-saml-test
-    WSGIPythonPath /srv/django-saml-test
+    WSGIPythonHome /srv/dj-sam
+    WSGIPythonPath /srv/dj-sam
 
 SAML response examples
 ----------------------
