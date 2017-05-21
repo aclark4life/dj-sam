@@ -33,14 +33,14 @@ RHEL 7
     sudo yum install httpd mod_wsgi git python2-pip python-virtualenv -y
 
     # Certbot requires epel repo & zope interface RPM from vendor/
-    rpm -Uvh python-zope-interface-4.0.5-4.el7.x86_64.rpm 
-    sudo yum install python2-certbot-apache certbot
+    sudo rpm -Uvh vendor/epel-release-latest-7.noarch.rpm
+    sudo rpm -Uvh vendor/python-zope-interface-4.0.5-4.el7.x86_64.rpm 
 
-    sudo yum install libjpeg-devel
-    sudo yum install screen
-    sudo yum install swig
-    sudo yum install libffi-devel
-    sudo yum install openssl-devel
+    sudo yum update
+
+    sudo yum install python2-certbot-apache certbot -y
+
+    sudo yum install libjpeg-devel screen swig libffi-devel openssl-devel -y
 
     # xmlsec requires RPMs from vendor/
     sudo rpm -Uvh xmlsec1-1.2.20-5.el7.x86_64.rpm 
