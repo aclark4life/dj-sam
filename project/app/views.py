@@ -24,8 +24,6 @@ key = open(PRIVATE_KEY).read()
 
 onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
-response_id = onelogin_saml2_utils.generate_unique_id()
-assertion_id = onelogin_saml2_utils.generate_unique_id()
 
 SAML2_RESPONSE = """
 <samlp:Response xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
@@ -92,7 +90,7 @@ SAML2_RESPONSE = """
         </saml:AuthnStatement>
     </saml:Assertion>
 </samlp:Response>
-""" % (response_id, assertion_id, cert)
+"""
 
 
 def home(request):
@@ -105,8 +103,11 @@ def home(request):
     else:
         destination = SAML2_RESPONSE_DEST_URL['absorb']
 
+    response_id = onelogin_saml2_utils.generate_unique_id()
+    assertion_id = onelogin_saml2_utils.generate_unique_id()
+
     # http://stackoverflow.com/a/3974112
-    root = etree.fromstring(SAML2_RESPONSE)
+    root = etree.fromstring(SAML2_RESPONSE % (response_id, assertion_id, cert))
     saml_response_pretty = etree.tostring(root, pretty_print=True)
 
     context = {
