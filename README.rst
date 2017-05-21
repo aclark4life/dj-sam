@@ -5,25 +5,6 @@ DJ Sam
 
 *RHEL 7 on AWS*
 
-selinux
--------
-
-::
-
-    [ec2-user@ip-172-30-2-147 ~]$ cat /etc/selinux/config 
-
-    # This file controls the state of SELinux on the system.
-    # SELINUX= can take one of these three values:
-    #     enforcing - SELinux security policy is enforced.
-    #     permissive - SELinux prints warnings instead of enforcing.
-    #     disabled - No SELinux policy is loaded.
-    SELINUX=permissive
-    # SELINUXTYPE= can take one of three two values:
-    #     targeted - Targeted processes are protected,
-    #     minimum - Modification of targeted policy. Only selected processes are protected. 
-    #     mls - Multi Level Security protection.
-    SELINUXTYPE=targeted
-
 RHEL 7
 ------
 
@@ -43,8 +24,28 @@ RHEL 7
     sudo yum install libtool-ltdl-devel libxml2-devel libxslt-devel -y
     sudo rpm -Uvh vendor/xmlsec1-1.2.20-5.el7.x86_64.rpm vendor/xmlsec1-devel-1.2.20-5.el7.x86_64.rpm vendor/xmlsec1-openssl-1.2.20-5.el7.x86_64.rpm vendor/xmlsec1-openssl-devel-1.2.20-5.el7.x86_64.rpm 
 
+selinux
+~~~~~~~
+
+::
+
+    [ec2-user@ip-172-30-2-147 ~]$ cat /etc/selinux/config 
+
+    # This file controls the state of SELinux on the system.
+    # SELINUX= can take one of these three values:
+    #     enforcing - SELinux security policy is enforced.
+    #     permissive - SELinux prints warnings instead of enforcing.
+    #     disabled - No SELinux policy is loaded.
+    SELINUX=permissive
+    # SELINUXTYPE= can take one of three two values:
+    #     targeted - Targeted processes are protected,
+    #     minimum - Modification of targeted policy. Only selected processes are protected. 
+    #     mls - Multi Level Security protection.
+    SELINUXTYPE=targeted
+
+
 Apache
-------
+~~~~~~
 
 ::
 
