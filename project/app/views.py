@@ -42,7 +42,7 @@ SAML2_RESPONSE = """
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     Version="2.0"
                     ID="%s"
-                    IssueInstant="2017-05-16T23:34:33Z"
+                    IssueInstant="%s"
                     >
         <saml:Issuer>https://app.onelogin.com/saml/metadata/658891</saml:Issuer>
         <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
@@ -105,16 +105,18 @@ def home(request):
 
     response_id = onelogin_saml2_utils.generate_unique_id()
     # https://github.com/jbardin/python-saml/blob/master/saml.py#L101
-    response_now = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%f')[:22]
+    issue_instant = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%f')[:22]
     assertion_id = onelogin_saml2_utils.generate_unique_id()
 
+    saml2_response = SAML2_RESPONSE % (response_id, issue_instant, assertion_id, issue_instant, cert)
+
     # http://stackoverflow.com/a/3974112
-    root = etree.fromstring(SAML2_RESPONSE % (response_id, response_now, assertion_id, cert))
+    root = etree.fromstring(saml2_response)
     saml_response_pretty = etree.tostring(root, pretty_print=True)
 
     context = {
         'base64_encoded_saml_response':
-        base64.b64encode(SAML2_RESPONSE % (response_id, response_now, assertion_id, cert)),
+        base64.b64encode(saml2_response),
         'saml_response': saml_response_pretty,
         'saml2_response_destination': destination,
     }
