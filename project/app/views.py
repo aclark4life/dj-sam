@@ -4,7 +4,7 @@ from onelogin.saml2 import utils
 import base64
 import datetime
 import os
-import xmlsec
+# import xmlsec
 
 SAML2_RESPONSE_ISSUER = 'https://dj-saml-idp.aclark.net'
 SAML2_RESPONSE_DEST_URL = {
