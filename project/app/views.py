@@ -51,7 +51,7 @@ SAML2_RESPONSE = """
             <ds:SignatureValue></ds:SignatureValue>
             <ds:KeyInfo>
                 <ds:X509Data>
-                    <ds:X509Certificate></ds:X509Certificate>
+                    <ds:X509Certificate>%s</ds:X509Certificate>
                 </ds:X509Data>
             </ds:KeyInfo>
         </ds:Signature>
@@ -80,7 +80,7 @@ SAML2_RESPONSE = """
         </saml:AuthnStatement>
     </saml:Assertion>
 </samlp:Response>
-"""
+""" % PUBLIC_CERT
 
 
 def home(request):
