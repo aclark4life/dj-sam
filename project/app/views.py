@@ -126,7 +126,9 @@
 #    return document.tostring()
 #
 #
-#def home(request):
+def home(request):
+    """
+    """
 #    # Configure destination here based on menu selection
 #    destination = request.GET.get('destination')
 #    if destination:
