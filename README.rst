@@ -1,7 +1,7 @@
 DJ Sam
 ======
 
-**Spinning all your favorite SAML hits.**
+**Spinning all your favorite SAML hits on Django.**
 
 *RHEL 7 on AWS*
 
@@ -30,23 +30,18 @@ RHEL 7
 ::
 
     sudo yum groupinstall "Development Tools" -y
-    sudo yum install httpd mod_wsgi git python2-pip python-virtualenv -y
+
+    # Basics
+    sudo yum install httpd mod_wsgi python2-pip python-virtualenv libjpeg-devel screen swig libffi-devel openssl-devel psmisc -y
 
     # Certbot requires epel repo & zope interface RPM from vendor/
     sudo rpm -Uvh vendor/epel-release-latest-7.noarch.rpm
     sudo rpm -Uvh vendor/python-zope-interface-4.0.5-4.el7.x86_64.rpm 
-
-    sudo yum update
-
     sudo yum install python2-certbot-apache certbot -y
 
-    sudo yum install libjpeg-devel screen swig libffi-devel openssl-devel -y
-
     # xmlsec requires RPMs from vendor/
-    sudo rpm -Uvh xmlsec1-1.2.20-5.el7.x86_64.rpm 
-    sudo rpm -Uvh xmlsec1-devel-1.2.20-5.el7.x86_64.rpm 
-    sudo rpm -Uvh xmlsec1-openssl-1.2.20-5.el7.x86_64.rpm 
-    sudo rpm -Uvh xmlsec1-openssl-devel-1.2.20-5.el7.x86_64.rpm 
+    sudo yum install libtool-ltdl-devel libxml2-devel libxslt-devel -y
+    sudo rpm -Uvh vendor/xmlsec1-1.2.20-5.el7.x86_64.rpm vendor/xmlsec1-devel-1.2.20-5.el7.x86_64.rpm vendor/xmlsec1-openssl-1.2.20-5.el7.x86_64.rpm vendor/xmlsec1-openssl-devel-1.2.20-5.el7.x86_64.rpm 
 
 Apache
 ------
