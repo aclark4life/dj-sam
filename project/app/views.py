@@ -4,6 +4,7 @@ from onelogin.saml2 import utils
 import base64
 import datetime
 import os
+import xmlsec
 
 SAML2_RESPONSE_ISSUER = 'https://dj-saml-idp.aclark.net'
 SAML2_RESPONSE_DEST_URL = {
@@ -21,7 +22,7 @@ cert = open(PUBLIC_CERT).read()
 cert = cert.replace('-----BEGIN CERTIFICATE-----', '')
 cert = cert.replace('-----END CERTIFICATE-----', '')
 cert = cert.replace('\n', '')
-key = open(PRIVATE_KEY).read()
+# key = open(PRIVATE_KEY).read()
 
 onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
@@ -45,26 +46,25 @@ SAML2_RESPONSE = """
                     IssueInstant="%s"
                     >
         <saml:Issuer>https://app.onelogin.com/saml/metadata/658891</saml:Issuer>
-        <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
-            <ds:SignedInfo>
-                <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
-                <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
-                <ds:Reference URI="#pfx89aab9e8-af3e-ace9-97b6-c1086f076d7a">
-                    <ds:Transforms>
-                        <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
-                        <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
-                    </ds:Transforms>
-                    <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-                    <ds:DigestValue>SQDekGp/Ibp90eC3O5dwu37ZdJA=</ds:DigestValue>
-                </ds:Reference>
-            </ds:SignedInfo>
-            <ds:SignatureValue></ds:SignatureValue>
-            <ds:KeyInfo>
-                <ds:X509Data>
-                    <ds:X509Certificate>%s</ds:X509Certificate>
-                </ds:X509Data>
-            </ds:KeyInfo>
-        </ds:Signature>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+              <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+              <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+              <Reference URI="">
+                <Transforms>
+                  <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue></DigestValue>
+              </Reference>
+            </SignedInfo>
+            <SignatureValue/>
+            <KeyInfo>
+                <X509Data>
+                    <X509Certificate>%s</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
         <saml:Subject>
             <saml:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">aclark@aclark.net</saml:NameID>
             <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
@@ -110,14 +110,21 @@ def home(request):
 
     saml2_response = SAML2_RESPONSE % (response_id, issue_instant, assertion_id, issue_instant, cert)
 
-    # http://stackoverflow.com/a/3974112
+    # Sign
     root = etree.fromstring(saml2_response)
-    saml_response_pretty = etree.tostring(root, pretty_print=True)
+    signature_node = xmlsec.tree.find_node(root, xmlsec.constants.NodeSignature)
+    ctx = xmlsec.SignatureContext()
+    key = xmlsec.Key.from_file(PRIVATE_KEY, xmlsec.constants.KeyDataFormatPem)
+    ctx.key = key
+    ctx.sign(signature_node)
+
+    # http://stackoverflow.com/a/3974112
+    saml2_response = etree.tostring(root, pretty_print=True)
 
     context = {
         'base64_encoded_saml_response':
         base64.b64encode(saml2_response),
-        'saml_response': saml_response_pretty,
+        'saml_response': saml2_response,
         'saml2_response_destination': destination,
     }
     return render(request, 'home.html', context)
