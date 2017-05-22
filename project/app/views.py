@@ -27,64 +27,41 @@ key = open(PRIVATE_KEY).read()
 onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
 SAML2_RESPONSE = """
-<samlp:Response xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-                xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
-                ID="%s"
-                Version="2.0"
-                IssueInstant="%s"
-                Destination="{recipient}"
-                >
-    <saml:Issuer>https://app.onelogin.com/saml/metadata/658891</saml:Issuer>
-    <samlp:Status>
-        <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success" />
-    </samlp:Status>
-    <saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-                    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                    Version="2.0"
-                    ID="%s"
-                    IssueInstant="%s"
-                    >
-        <saml:Issuer>https://app.onelogin.com/saml/metadata/658891</saml:Issuer>
-        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
-            <SignedInfo>
-              <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
-              <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
-              <Reference URI="">
-                <Transforms>
-                  <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
-                </Transforms>
-                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-                <DigestValue></DigestValue>
-              </Reference>
-            </SignedInfo>
-            <SignatureValue/>
-            <KeyInfo/>
-        </Signature>
-        <saml:Subject>
-            <saml:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">aclark@aclark.net</saml:NameID>
-            <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
-                <saml:SubjectConfirmationData NotOnOrAfter="2017-05-16T23:37:33Z"
-                                              Recipient="{recipient}"
-                                              />
-            </saml:SubjectConfirmation>
-        </saml:Subject>
-        <saml:Conditions NotBefore="2017-05-16T23:31:33Z"
-                         NotOnOrAfter="2017-05-16T23:37:33Z"
-                         >
-            <saml:AudienceRestriction>
-                <saml:Audience/>
-            </saml:AudienceRestriction>
-        </saml:Conditions>
-        <saml:AuthnStatement AuthnInstant="2017-05-16T23:34:32Z"
-                             SessionNotOnOrAfter="2017-05-17T23:34:33Z"
-                             SessionIndex="_b49f0e60-1cbb-0135-39ae-06cb00433bb7"
-                             >
-            <saml:AuthnContext>
-                <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport</saml:AuthnContextClassRef>
-            </saml:AuthnContext>
-        </saml:AuthnStatement>
-    </saml:Assertion>
+<samlp:Response xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" Version="2.0" ID="_979e68dcbc234c9db0067032020f79d9" IssueInstant="2017-05-22T01:25:14Z" Destination="https://aclark.myabsorb.com/account/saml">
+  <saml:Issuer>https://dj-saml-idp.aclark.net</saml:Issuer>
+  <samlp:Status>
+    <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
+  </samlp:Status>
+  <saml:Assertion Version="2.0" ID="_d871123e06e8426e95922b6685af10fc" IssueInstant="2017-05-22T01:25:14Z">
+    <saml:Issuer>https://dj-saml-idp.aclark.net</saml:Issuer>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+<SignedInfo>
+<CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+<Reference>
+<Transforms>
+<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+</Transforms>
+<DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+<DigestValue>sv5e6dir4A+CGEUEKQxUHqDsrO4=</DigestValue>
+</Reference>
+</SignedInfo>
+<SignatureValue>zchFg2oFo0T7FLobbLS1rtBOdxRnaM5z9y2OA6rNRYxhe+744SSkcHsYf8us65ca
+QsjOLKT0j1zo/HAn3Ud03b1CI92YBeJ9O4/HMuBPawOYBFE7U7/Yn2wtnU2NVr0m
+8ikGMrpZ/2WFaM9lt82k8dco1MPd1REVsFJYg3la6Q8=</SignatureValue>
+</Signature>
+    <saml:Subject>
+      <saml:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">aclark@aclark.net</saml:NameID>
+      <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+        <saml:SubjectConfirmationData Recipient="https://aclark.myabsorb.com/account/saml"/>
+      </saml:SubjectConfirmation>
+    </saml:Subject>
+    <saml:AuthnStatement AuthnInstant="2017-05-22T01:25:14Z">
+      <saml:AuthnContext>
+        <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport</saml:AuthnContextClassRef>
+      </saml:AuthnContext>
+    </saml:AuthnStatement>
+  </saml:Assertion>
 </samlp:Response>
 """
 
@@ -104,8 +81,9 @@ def home(request):
         '%Y-%m-%dT%H:%M:%S.%f')[:22]
     assertion_id = onelogin_saml2_utils.generate_unique_id()
 
-    saml2_response = SAML2_RESPONSE % (response_id, issue_instant,
-                                       assertion_id, issue_instant)
+#    saml2_response = SAML2_RESPONSE % (response_id, issue_instant,
+#                                       assertion_id, issue_instant)
+    saml2_response = SAML2_RESPONSE
 
     # Sign
     root = etree.fromstring(saml2_response)
