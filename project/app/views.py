@@ -100,7 +100,7 @@ def home(request):
     response_id = onelogin_saml2_utils.generate_unique_id()
     # https://github.com/jbardin/python-saml/blob/master/saml.py#L101
     issue_instant = datetime.datetime.utcnow().strftime(
-        '%Y-%m-%dT%H:%M:%S.%fZ')[:23]
+        '%Y-%m-%dT%H:%M:%S.%f')[:22]
     assertion_id = onelogin_saml2_utils.generate_unique_id()
 
     saml2_response = SAML2_RESPONSE % (response_id, issue_instant,
