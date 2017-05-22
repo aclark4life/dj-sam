@@ -39,6 +39,8 @@ SAML2_RESPONSE = """
         <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success" />
     </samlp:Status>
     <saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     Version="2.0"
                     ID="%s"
                     IssueInstant="%s"
@@ -57,7 +59,6 @@ SAML2_RESPONSE = """
               </Reference>
             </SignedInfo>
             <SignatureValue/>
-            <KeyInfo/>
         </Signature>
         <saml:Subject>
             <saml:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">aclark@aclark.net</saml:NameID>
