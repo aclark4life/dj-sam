@@ -33,7 +33,7 @@ SAML2_RESPONSE = """
     <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
   </samlp:Status>
   <saml:Assertion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" ID="%s" Version="2.0" IssueInstant="%s">
-    <saml:Issuer>http://idp.example.com/metadata.php</saml:Issuer><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+    <saml:Issuer>%s</saml:Issuer><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
   <ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
     <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
   <ds:Reference URI="#pfx6a4934ca-8e10-1df0-7a43-527877a49cfa"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>9PGeFErQbRDLn+OJyDiJ/rTiDGg=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue>ZApC6t7ldMxjhVhO4eSwM4Kps8ez8H0n4VfBK1hLK5p7LquGtPTxSS3SSNKsnBQRNa2w/r1jaqq7/4lZwavKNo9rVQBvBUpabiBXLQEPdWF4FsI3NCQ5l6laJsIOxHmuRm6+ct6N4JM1ENzeG++Qg5IKCYSSv7zIr8h4W4kpu+c=</ds:SignatureValue>
@@ -85,7 +85,7 @@ def home(request):
 
     # saml2_response = SAML2_RESPONSE % (response_id, issue_instant,
     #                                    assertion_id, issue_instant, issue_instant)
-    saml2_response = SAML2_RESPONSE % (response_id, issue_instant, destination, SAML2_RESPONSE_ISSUER, assertion_id, issue_instant, destination)
+    saml2_response = SAML2_RESPONSE % (response_id, issue_instant, destination, SAML2_RESPONSE_ISSUER, SAML2_RESPONSE_ISSUER, assertion_id, issue_instant, destination)
 
     root = etree.fromstring(saml2_response)
     saml2_response = etree.tostring(root, pretty_print=True)
