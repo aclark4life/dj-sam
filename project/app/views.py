@@ -111,7 +111,7 @@ def home(request):
     # Sign
     # root = etree.fromstring(saml2_response)
     # signature_node = xmlsec.tree.find_node(root,
-                                           xmlsec.constants.NodeSignature)
+    #                                       xmlsec.constants.NodeSignature)
     # ctx = xmlsec.SignatureContext()
     # key = xmlsec.Key.from_file(PRIVATE_KEY, xmlsec.constants.KeyDataFormatPem)
     # ctx.key = key
