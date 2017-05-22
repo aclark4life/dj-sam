@@ -28,7 +28,7 @@ onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
 SAML2_RESPONSE = """
 <samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="%s" Version="2.0" IssueInstant="%s" Destination="%s">
-  <saml:Issuer>http://idp.example.com/metadata.php</saml:Issuer>
+  <saml:Issuer>%s</saml:Issuer>
   <samlp:Status>
     <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
   </samlp:Status>
@@ -85,7 +85,7 @@ def home(request):
 
     # saml2_response = SAML2_RESPONSE % (response_id, issue_instant,
     #                                    assertion_id, issue_instant, issue_instant)
-    saml2_response = SAML2_RESPONSE % (response_id, issue_instant, destination, assertion_id, issue_instant, destination)
+    saml2_response = SAML2_RESPONSE % (response_id, issue_instant, destination, SAML2_RESPONSE_ISSUER, assertion_id, issue_instant, destination)
 
     root = etree.fromstring(saml2_response)
     saml2_response = etree.tostring(root, pretty_print=True)
