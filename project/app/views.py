@@ -34,7 +34,7 @@ SAML2_RESPONSE = """
                 IssueInstant="%s"
                 Destination="https://aclark.myabsorb.com/account/saml"
                 >
-    <saml:Issuer>https://app.onelogin.com/saml/metadata/658891</saml:Issuer>
+    <saml:Issuer>https://dj-sam.aclark.net</saml:Issuer>
     <samlp:Status>
         <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success" />
     </samlp:Status>
@@ -45,7 +45,7 @@ SAML2_RESPONSE = """
                     ID="%s"
                     IssueInstant="%s"
                     >
-        <saml:Issuer>https://app.onelogin.com/saml/metadata/658891</saml:Issuer>
+        <saml:Issuer>https://dj-sam.aclark.net</saml:Issuer>
         <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
             <SignedInfo>
               <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
