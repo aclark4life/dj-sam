@@ -75,7 +75,7 @@ SAML2_RESPONSE = """
                 <saml:Audience/>
             </saml:AudienceRestriction>
         </saml:Conditions>
-        <saml:AuthnStatement AuthnInstant="2017-05-16T23:34:32Z"
+        <saml:AuthnStatement AuthnInstant="%s"
                              SessionNotOnOrAfter="2017-05-17T23:34:33Z"
                              SessionIndex="_b49f0e60-1cbb-0135-39ae-06cb00433bb7"
                              >
@@ -104,24 +104,13 @@ def home(request):
     assertion_id = onelogin_saml2_utils.generate_unique_id()
 
     saml2_response = SAML2_RESPONSE % (response_id, issue_instant,
-                                       assertion_id, issue_instant)
+                                       assertion_id, issue_instant, issue_instant)
 
-    # Sign
     root = etree.fromstring(saml2_response)
-    # signature_node = xmlsec.tree.find_node(root,
-    #                                       xmlsec.constants.NodeSignature)
-    # ctx = xmlsec.SignatureContext()
-    # key = xmlsec.Key.from_file(PRIVATE_KEY, xmlsec.constants.KeyDataFormatPem)
-    # ctx.key = key
-    # ctx.sign(signature_node)
-
-    # Pretty, http://stackoverflow.com/a/3974112
     saml2_response = etree.tostring(root, pretty_print=True)
 
     context = {
         'base64_encoded_saml_response': base64.b64encode(saml2_response),
-#        'base64_encoded_saml_response': saml2_response,
-#        'base64_encoded_saml_response': onelogin_saml2_utils.deflate_and_base64_encode(saml2_response),
         'saml_response': saml2_response,
         'saml2_response_destination': destination,
     }
