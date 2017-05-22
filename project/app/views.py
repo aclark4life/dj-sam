@@ -32,7 +32,7 @@ SAML2_RESPONSE = """
                 ID="%s"
                 Version="2.0"
                 IssueInstant="%s"
-                Destination="{recipient}"
+                Destination="https://aclark.myabsorb.com/account/saml"
                 >
     <saml:Issuer>https://app.onelogin.com/saml/metadata/658891</saml:Issuer>
     <samlp:Status>
@@ -64,7 +64,7 @@ SAML2_RESPONSE = """
             <saml:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">aclark@aclark.net</saml:NameID>
             <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
                 <saml:SubjectConfirmationData NotOnOrAfter="2017-05-16T23:37:33Z"
-                                              Recipient="{recipient}"
+                                              Recipient="https://aclark.myabsorb.com/account/saml"
                                               />
             </saml:SubjectConfirmation>
         </saml:Subject>
