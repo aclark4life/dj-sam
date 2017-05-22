@@ -1,4 +1,4 @@
 Django
 lxml
 python-saml
-xmlsec
+saml

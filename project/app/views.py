@@ -1,10 +1,16 @@
 from django.shortcuts import render
 from lxml import etree
 from onelogin.saml2 import utils
+from saml import sign
 import base64
 import datetime
 import os
-# import xmlsec
+
+# http://stackoverflow.com/a/14853417
+NAMESPACES = {  # for pasting Signature after Issuer
+    'saml': 'urn:oasis:names:tc:SAML:2.0:assertion',
+    'samlp': 'urn:oasis:names:tc:SAML:2.0:protocol',
+}
 
 SAML2_RESPONSE_ISSUER = 'https://dj-sam.aclark.net'
 SAML2_RESPONSE_DEST_URL = {
@@ -25,6 +31,8 @@ cert = cert.replace('\n', '')
 key = open(PRIVATE_KEY).read()
 
 onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
+
+
 
 SAML2_RESPONSE = """
 <samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="%s" Version="2.0" IssueInstant="%s" Destination="%s" InResponseTo="ONELOGIN_4fee3b046395c4e751011e97f8900b5273d56685">
@@ -83,6 +91,8 @@ def home(request):
     saml2_response = SAML2_RESPONSE % (response_id, issue_instant, destination, assertion_id, issue_instant, destination)
 
     root = etree.fromstring(saml2_response)
+    assertion = root.find('saml:Assertion', NAMESPACES)
+    sign(assertion, key)
     saml2_response = etree.tostring(root, pretty_print=True)
 
     context = {
