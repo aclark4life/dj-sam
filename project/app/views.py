@@ -32,7 +32,7 @@ SAML2_RESPONSE = """
   <samlp:Status>
     <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
   </samlp:Status>
-  <saml:Assertion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" ID="_d71a3a8e9fcc45c9e9d248ef7049393fc8f04e5f75" Version="2.0" IssueInstant="%s">
+  <saml:Assertion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" ID="%s" Version="2.0" IssueInstant="%s">
     <saml:Issuer>http://idp.example.com/metadata.php</saml:Issuer>
     <saml:Subject>
       <saml:NameID SPNameQualifier="http://sp.example.com/demo1/metadata.php" Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">_ce3d2948b4cf20146dee0a0b3dd6f69b6cf86f62d7</saml:NameID>
@@ -80,7 +80,7 @@ def home(request):
     assertion_id = onelogin_saml2_utils.generate_unique_id()
 
     # saml2_response = SAML2_RESPONSE % (response_id, issue_instant, destination, SAML2_RESPONSE_ISSUER, assertion_id, issue_instant, SAML2_RESPONSE_ISSUER, destination)
-    saml2_response = SAML2_RESPONSE % (response_id, issue_instant, destination, issue_instant)
+    saml2_response = SAML2_RESPONSE % (response_id, issue_instant, destination, assertion_id, issue_instant)
 
     root = etree.fromstring(saml2_response)
     saml2_response = etree.tostring(root, pretty_print=True)
