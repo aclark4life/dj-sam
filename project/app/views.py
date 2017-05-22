@@ -63,7 +63,7 @@ SAML2_RESPONSE = """
         <saml:Subject>
             <saml:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">aclark@aclark.net</saml:NameID>
             <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
-                <saml:SubjectConfirmationData NotOnOrAfter="2017-05-16T23:37:33Z"
+                <saml:SubjectConfirmationData 
                                               Recipient="https://aclark.myabsorb.com/account/saml"
                                               />
             </saml:SubjectConfirmation>
