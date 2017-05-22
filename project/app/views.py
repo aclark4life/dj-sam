@@ -27,7 +27,7 @@ key = open(PRIVATE_KEY).read()
 onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
 SAML2_RESPONSE = """
-<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="_8e8dc5f69a98cc4c1ff3427e5ce34606fd672f91e6" Version="2.0" IssueInstant="%s" Destination="http://sp.example.com/demo1/index.php?acs">
+<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="%s" Version="2.0" IssueInstant="%s" Destination="http://sp.example.com/demo1/index.php?acs">
   <saml:Issuer>http://idp.example.com/metadata.php</saml:Issuer>
   <samlp:Status>
     <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
@@ -88,7 +88,7 @@ def home(request):
 
     # saml2_response = SAML2_RESPONSE % (response_id, issue_instant,
     #                                    assertion_id, issue_instant, issue_instant)
-    saml2_response = SAML2_RESPONSE % (issue_instant, issue_instant)
+    saml2_response = SAML2_RESPONSE % (response_id, issue_instant, issue_instant)
 
     root = etree.fromstring(saml2_response)
     saml2_response = etree.tostring(root, pretty_print=True)
