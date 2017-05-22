@@ -76,7 +76,6 @@ SAML2_RESPONSE = """
             </saml:AudienceRestriction>
         </saml:Conditions>
         <saml:AuthnStatement AuthnInstant="%s"
-                             SessionNotOnOrAfter="2017-05-17T23:34:33Z"
                              SessionIndex="_b49f0e60-1cbb-0135-39ae-06cb00433bb7"
                              >
             <saml:AuthnContext>
