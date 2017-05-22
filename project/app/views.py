@@ -190,7 +190,8 @@ def home(request):
     saml2_response = etree.tostring(root, pretty_print=True)
 
     context = {
-        'base64_encoded_saml_response': base64.b64encode(saml2_response),
+#        'base64_encoded_saml_response': base64.b64encode(saml2_response),
+        'base64_encoded_saml_response': saml2_response,
 #        'base64_encoded_saml_response': onelogin_saml2_utils.deflate_and_base64_encode(saml2_response),
         'saml_response': saml2_response,
         'saml2_response_destination': destination,
