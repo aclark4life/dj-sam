@@ -27,50 +27,46 @@ key = open(PRIVATE_KEY).read()
 onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
 SAML2_RESPONSE = """
-<samlp:Response xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-                xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
-                ID="%s"
-                Version="2.0"
-                IssueInstant="%s"
-                Destination="https://aclark.myabsorb.com/account/saml"
-                >
-    <saml:Issuer>https://dj-sam.aclark.net</saml:Issuer>
-    <samlp:Status>
-        <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success" />
-    </samlp:Status>
-    <saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-                    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                    Version="2.0"
-                    ID="%s"
-                    IssueInstant="%s"
-                    >
-        <saml:Issuer>https://dj-sam.aclark.net</saml:Issuer>
-        <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
-        </ds:Signature>
-        <saml:Subject>
-            <saml:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">aclark@aclark.net</saml:NameID>
-            <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
-                <saml:SubjectConfirmationData 
-                                              Recipient="https://aclark.myabsorb.com/account/saml"
-                                              />
-            </saml:SubjectConfirmation>
-        </saml:Subject>
-        <saml:Conditions NotBefore="2017-05-16T23:31:33Z"
-                         NotOnOrAfter="2017-05-16T23:37:33Z"
-                         >
-            <saml:AudienceRestriction>
-                <saml:Audience/>
-            </saml:AudienceRestriction>
-        </saml:Conditions>
-        <saml:AuthnStatement AuthnInstant="%s"
-                             SessionIndex="_b49f0e60-1cbb-0135-39ae-06cb00433bb7"
-                             >
-            <saml:AuthnContext>
-                <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport</saml:AuthnContextClassRef>
-            </saml:AuthnContext>
-        </saml:AuthnStatement>
-    </saml:Assertion>
+<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="_8e8dc5f69a98cc4c1ff3427e5ce34606fd672f91e6" Version="2.0" IssueInstant="2014-07-17T01:01:48Z" Destination="http://sp.example.com/demo1/index.php?acs" InResponseTo="ONELOGIN_4fee3b046395c4e751011e97f8900b5273d56685">
+  <saml:Issuer>http://idp.example.com/metadata.php</saml:Issuer>
+  <samlp:Status>
+    <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
+  </samlp:Status>
+  <saml:Assertion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" ID="pfx6a4934ca-8e10-1df0-7a43-527877a49cfa" Version="2.0" IssueInstant="2014-07-17T01:01:48Z">
+    <saml:Issuer>http://idp.example.com/metadata.php</saml:Issuer><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+  <ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+    <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+  <ds:Reference URI="#pfx6a4934ca-8e10-1df0-7a43-527877a49cfa"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>9PGeFErQbRDLn+OJyDiJ/rTiDGg=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue>ZApC6t7ldMxjhVhO4eSwM4Kps8ez8H0n4VfBK1hLK5p7LquGtPTxSS3SSNKsnBQRNa2w/r1jaqq7/4lZwavKNo9rVQBvBUpabiBXLQEPdWF4FsI3NCQ5l6laJsIOxHmuRm6+ct6N4JM1ENzeG++Qg5IKCYSSv7zIr8h4W4kpu+c=</ds:SignatureValue>
+<ds:KeyInfo><ds:X509Data><ds:X509Certificate>MIICajCCAdOgAwIBAgIBADANBgkqhkiG9w0BAQ0FADBSMQswCQYDVQQGEwJ1czETMBEGA1UECAwKQ2FsaWZvcm5pYTEVMBMGA1UECgwMT25lbG9naW4gSW5jMRcwFQYDVQQDDA5zcC5leGFtcGxlLmNvbTAeFw0xNDA3MTcxNDEyNTZaFw0xNTA3MTcxNDEyNTZaMFIxCzAJBgNVBAYTAnVzMRMwEQYDVQQIDApDYWxpZm9ybmlhMRUwEwYDVQQKDAxPbmVsb2dpbiBJbmMxFzAVBgNVBAMMDnNwLmV4YW1wbGUuY29tMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDZx+ON4IUoIWxgukTb1tOiX3bMYzYQiwWPUNMp+Fq82xoNogso2bykZG0yiJm5o8zv/sd6pGouayMgkx/2FSOdc36T0jGbCHuRSbtia0PEzNIRtmViMrt3AeoWBidRXmZsxCNLwgIV6dn2WpuE5Az0bHgpZnQxTKFek0BMKU/d8wIDAQABo1AwTjAdBgNVHQ4EFgQUGHxYqZYyX7cTxKVODVgZwSTdCnwwHwYDVR0jBBgwFoAUGHxYqZYyX7cTxKVODVgZwSTdCnwwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQ0FAAOBgQByFOl+hMFICbd3DJfnp2Rgd/dqttsZG/tyhILWvErbio/DEe98mXpowhTkC04ENprOyXi7ZbUqiicF89uAGyt1oqgTUCD1VsLahqIcmrzgumNyTwLGWo17WDAa1/usDhetWAMhgzF/Cnf5ek0nK00m0YZGyc4LzgD0CROMASTWNg==</ds:X509Certificate></ds:X509Data></ds:KeyInfo></ds:Signature>
+    <saml:Subject>
+      <saml:NameID SPNameQualifier="http://sp.example.com/demo1/metadata.php" Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">_ce3d2948b4cf20146dee0a0b3dd6f69b6cf86f62d7</saml:NameID>
+      <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+        <saml:SubjectConfirmationData NotOnOrAfter="2024-01-18T06:21:48Z" Recipient="http://sp.example.com/demo1/index.php?acs" InResponseTo="ONELOGIN_4fee3b046395c4e751011e97f8900b5273d56685"/>
+      </saml:SubjectConfirmation>
+    </saml:Subject>
+    <saml:Conditions NotBefore="2014-07-17T01:01:18Z" NotOnOrAfter="2024-01-18T06:21:48Z">
+      <saml:AudienceRestriction>
+        <saml:Audience>http://sp.example.com/demo1/metadata.php</saml:Audience>
+      </saml:AudienceRestriction>
+    </saml:Conditions>
+    <saml:AuthnStatement AuthnInstant="2014-07-17T01:01:48Z" SessionNotOnOrAfter="2024-07-17T09:01:48Z" SessionIndex="_be9967abd904ddcae3c0eb4189adbe3f71e327cf93">
+      <saml:AuthnContext>
+        <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:Password</saml:AuthnContextClassRef>
+      </saml:AuthnContext>
+    </saml:AuthnStatement>
+    <saml:AttributeStatement>
+      <saml:Attribute Name="uid" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic">
+        <saml:AttributeValue xsi:type="xs:string">test</saml:AttributeValue>
+      </saml:Attribute>
+      <saml:Attribute Name="mail" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic">
+        <saml:AttributeValue xsi:type="xs:string">test@example.com</saml:AttributeValue>
+      </saml:Attribute>
+      <saml:Attribute Name="eduPersonAffiliation" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic">
+        <saml:AttributeValue xsi:type="xs:string">users</saml:AttributeValue>
+        <saml:AttributeValue xsi:type="xs:string">examplerole1</saml:AttributeValue>
+      </saml:Attribute>
+    </saml:AttributeStatement>
+  </saml:Assertion>
 </samlp:Response>
 """
 
