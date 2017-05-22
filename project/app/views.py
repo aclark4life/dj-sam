@@ -92,7 +92,7 @@ def home(request):
 
     root = etree.fromstring(saml2_response)
     assertion = root.find('saml:Assertion', NAMESPACES)
-    sign(assertion, key)
+    # sign(assertion, key)
     saml2_response = etree.tostring(root, pretty_print=True)
 
     context = {
