@@ -46,20 +46,21 @@ SAML2_RESPONSE = """
                     IssueInstant="%s"
                     >
         <saml:Issuer>https://dj-sam.aclark.net</saml:Issuer>
-        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
-            <SignedInfo>
-              <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
-              <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
-              <Reference URI="">
-                <Transforms>
-                  <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
-                </Transforms>
-                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-                <DigestValue></DigestValue>
-              </Reference>
-            </SignedInfo>
-            <SignatureValue/>
-        </Signature>
+        <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+            <ds:SignedInfo>
+                <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+                <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+                <ds:Reference URI="#pfx89aab9e8-af3e-ace9-97b6-c1086f076d7a">
+                    <ds:Transforms>
+                        <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                        <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+                    </ds:Transforms>
+                    <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                    <ds:DigestValue>SQDekGp/Ibp90eC3O5dwu37ZdJA=</ds:DigestValue>
+                </ds:Reference>
+            </ds:SignedInfo>
+            <ds:SignatureValue>BvY9Q7tHhiZSEuSuK4XrQ9Bqm8ItdG8I3mZbMvPYb8SmM9OrOVa5+jD05nn528jk+Zzbg6jSBKFplz1mlXnXJKeaJTBDVcV8nVnzojaj6P+WgUNOivl+oVh86mhy7+xQVpiPwHvz2PLwKP4vGW8YlWShoWMQCbqyDnGD4qAU94l1RRCQ8TvuD+qHyqQhuQK3T26dXTh/W04oB8WIQv6k//07dwF5zNRb/I5BZ/dtTZR8rr+cJG441+DFIc+4uQ3h9q3IHE0kSl7TQUky7akOdRnvB1ZZx8IhRdM7e7EvJYL+bbSrgizi18pPt4UMk+s2+NkNaK/ADvGQXEvVaaoYVw==</ds:SignatureValue>
+        </ds:Signature>
         <saml:Subject>
             <saml:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">aclark@aclark.net</saml:NameID>
             <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
