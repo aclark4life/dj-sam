@@ -4,7 +4,7 @@ from onelogin.saml2 import utils
 import base64
 import datetime
 import os
-# import xmlsec
+import xmlsec
 
 SAML2_RESPONSE_ISSUER = 'https://dj-saml-idp.aclark.net'
 SAML2_RESPONSE_DEST_URL = {
@@ -110,12 +110,12 @@ def home(request):
 
     # Sign
     root = etree.fromstring(saml2_response)
-    # signature_node = xmlsec.tree.find_node(root,
-    #                                       xmlsec.constants.NodeSignature)
-    # ctx = xmlsec.SignatureContext()
-    # key = xmlsec.Key.from_file(PRIVATE_KEY, xmlsec.constants.KeyDataFormatPem)
-    # ctx.key = key
-    # ctx.sign(signature_node)
+    signature_node = xmlsec.tree.find_node(root,
+                                          xmlsec.constants.NodeSignature)
+    ctx = xmlsec.SignatureContext()
+    key = xmlsec.Key.from_file(PRIVATE_KEY, xmlsec.constants.KeyDataFormatPem)
+    ctx.key = key
+    ctx.sign(signature_node)
 
     # Pretty, http://stackoverflow.com/a/3974112
     saml2_response = etree.tostring(root, pretty_print=True)
