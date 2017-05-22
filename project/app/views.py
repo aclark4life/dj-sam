@@ -41,9 +41,6 @@ SAML2_RESPONSE = """
       </saml:SubjectConfirmation>
     </saml:Subject>
     <saml:Conditions NotBefore="2014-07-17T01:01:18Z" NotOnOrAfter="2024-01-18T06:21:48Z">
-      <saml:AudienceRestriction>
-        <saml:Audience>http://sp.example.com/demo1/metadata.php</saml:Audience>
-      </saml:AudienceRestriction>
     </saml:Conditions>
     <saml:AuthnStatement AuthnInstant="2014-07-17T01:01:48Z" SessionNotOnOrAfter="2024-07-17T09:01:48Z" SessionIndex="_be9967abd904ddcae3c0eb4189adbe3f71e327cf93">
       <saml:AuthnContext>
