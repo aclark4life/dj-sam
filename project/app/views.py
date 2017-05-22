@@ -85,7 +85,7 @@ def home(request):
 
     # saml2_response = SAML2_RESPONSE % (response_id, issue_instant,
     #                                    assertion_id, issue_instant, issue_instant)
-    saml2_response = SAML2_RESPONSE % (response_id, issue_instant, destination, SAML2_RESPONSE_ISSUER, assertion_id, SAML2_RESPONSE_ISSUER, issue_instant, destination)
+    saml2_response = SAML2_RESPONSE % (response_id, issue_instant, destination, SAML2_RESPONSE_ISSUER, assertion_id, issue_instant, SAML2_RESPONSE_ISSUER, destination)
 
     root = etree.fromstring(saml2_response)
     saml2_response = etree.tostring(root, pretty_print=True)
