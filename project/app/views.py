@@ -6,7 +6,7 @@ import datetime
 import os
 # import xmlsec
 
-SAML2_RESPONSE_ISSUER = 'https://dj-sam.aclark.net'
+SAML2_RESPONSE_ISSUER = 'https://dj-saml-idp.aclark.net'
 SAML2_RESPONSE_DEST_URL = {
     'absorb': 'https://aclark.myabsorb.com/account/saml',
     'testshib': 'https://sp.testshib.org/Shibboleth.sso/SAML2/POST',
@@ -28,12 +28,12 @@ onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
 SAML2_RESPONSE = """
 <samlp:Response xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" Version="2.0" ID="_979e68dcbc234c9db0067032020f79d9" IssueInstant="2017-05-22T01:25:14Z" Destination="https://aclark.myabsorb.com/account/saml">
-  <saml:Issuer>https://dj-sam.aclark.net</saml:Issuer>
+  <saml:Issuer>https://dj-saml-idp.aclark.net</saml:Issuer>
   <samlp:Status>
     <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
   </samlp:Status>
   <saml:Assertion Version="2.0" ID="_d871123e06e8426e95922b6685af10fc" IssueInstant="2017-05-22T01:25:14Z">
-    <saml:Issuer>https://dj-sam.aclark.net</saml:Issuer>
+    <saml:Issuer>https://dj-saml-idp.aclark.net</saml:Issuer>
     <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
 <SignedInfo>
 <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
