@@ -37,7 +37,7 @@ SAML2_RESPONSE = """
     <saml:Subject>
       <saml:NameID SPNameQualifier="http://sp.example.com/demo1/metadata.php" Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">_ce3d2948b4cf20146dee0a0b3dd6f69b6cf86f62d7</saml:NameID>
       <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
-        <saml:SubjectConfirmationData NotOnOrAfter="2024-01-18T06:21:48Z" Recipient="http://sp.example.com/demo1/index.php?acs"/>
+        <saml:SubjectConfirmationData NotOnOrAfter="2024-01-18T06:21:48Z" Recipient="%s"/>
       </saml:SubjectConfirmation>
     </saml:Subject>
     <saml:Conditions NotBefore="2014-07-17T01:01:18Z" NotOnOrAfter="2024-01-18T06:21:48Z">
@@ -80,7 +80,7 @@ def home(request):
     assertion_id = onelogin_saml2_utils.generate_unique_id()
 
     # saml2_response = SAML2_RESPONSE % (response_id, issue_instant, destination, SAML2_RESPONSE_ISSUER, assertion_id, issue_instant, SAML2_RESPONSE_ISSUER, destination)
-    saml2_response = SAML2_RESPONSE % (response_id, issue_instant, destination, assertion_id, issue_instant)
+    saml2_response = SAML2_RESPONSE % (response_id, issue_instant, destination, assertion_id, issue_instant, destination)
 
     root = etree.fromstring(saml2_response)
     saml2_response = etree.tostring(root, pretty_print=True)
