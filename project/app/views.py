@@ -82,9 +82,8 @@ def home(request):
         '%Y-%m-%dT%H:%M:%S.%f')[:22]
     assertion_id = onelogin_saml2_utils.generate_unique_id()
 
-    # saml2_response = SAML2_RESPONSE % (response_id, issue_instant,
-    #                                    assertion_id, issue_instant, issue_instant)
-    saml2_response = SAML2_RESPONSE % (response_id, issue_instant, destination, SAML2_RESPONSE_ISSUER, assertion_id, issue_instant, SAML2_RESPONSE_ISSUER, destination)
+    # saml2_response = SAML2_RESPONSE % (response_id, issue_instant, destination, SAML2_RESPONSE_ISSUER, assertion_id, issue_instant, SAML2_RESPONSE_ISSUER, destination)
+    saml2_response = SAML2_RESPONSE
 
     root = etree.fromstring(saml2_response)
     saml2_response = etree.tostring(root, pretty_print=True)
