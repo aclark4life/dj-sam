@@ -109,7 +109,7 @@ def home(request):
                                        assertion_id, issue_instant)
 
     # Sign
-    # root = etree.fromstring(saml2_response)
+    root = etree.fromstring(saml2_response)
     # signature_node = xmlsec.tree.find_node(root,
     #                                       xmlsec.constants.NodeSignature)
     # ctx = xmlsec.SignatureContext()
