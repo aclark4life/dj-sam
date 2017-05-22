@@ -22,7 +22,7 @@ cert = open(PUBLIC_CERT).read()
 cert = cert.replace('-----BEGIN CERTIFICATE-----', '')
 cert = cert.replace('-----END CERTIFICATE-----', '')
 cert = cert.replace('\n', '')
-# key = open(PRIVATE_KEY).read()
+key = open(PRIVATE_KEY).read()
 
 onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
